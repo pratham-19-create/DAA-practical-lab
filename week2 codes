@@ -1,0 +1,158 @@
+#include <stdio.h>
+
+// Function to find the first occurrence using Binary Search
+int firstOccurrence(int arr[], int n, int target) {
+    int low = 0, high = n - 1, result = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target) {
+            result = mid;   // Store index, but continue search on left
+            high = mid - 1;
+        } else if (arr[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return result;
+}
+
+// Function to find the last occurrence using Binary Search
+int lastOccurrence(int arr[], int n, int target) {
+    int low = 0, high = n - 1, result = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target) {
+            result = mid;   // Store index, but continue search on right
+            low = mid + 1;
+        } else if (arr[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return result;
+}
+
+// Function to count occurrences of a key
+int countOccurrences(int arr[], int n, int target) {
+    int first = firstOccurrence(arr, n, target);
+    if (first == -1)  // If the key is not found
+        return 0;
+    int last = lastOccurrence(arr, n, target);
+    return last - first + 1;  // Count of duplicates
+}
+
+int main() {
+    int arr[] = {2, 4, 4, 4, 5, 6, 7, 8, 8, 9};  // Sorted array
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 4;
+
+    int count = countOccurrences(arr, n, target);
+    if (count > 0)
+        printf("Element %d occurs %d times.\n", target, count);
+    else
+        printf("Element not found.\n");
+
+    return 0;
+}
+
+q2>
+#include <stdio.h>
+
+// Function to find the first occurrence using Binary Search
+int firstOccurrence(int arr[], int n, int target) {
+    int low = 0, high = n - 1, result = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target) {
+            result = mid;   // Store index, but continue search on left
+            high = mid - 1;
+        } else if (arr[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return result;
+}
+
+// Function to find the last occurrence using Binary Search
+int lastOccurrence(int arr[], int n, int target) {
+    int low = 0, high = n - 1, result = -1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target) {
+            result = mid;   // Store index, but continue search on right
+            low = mid + 1;
+        } else if (arr[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return result;
+}
+
+// Function to count occurrences of a key
+int countOccurrences(int arr[], int n, int target) {
+    int first = firstOccurrence(arr, n, target);
+    if (first == -1)  // If the key is not found
+        return 0;
+    int last = lastOccurrence(arr, n, target);
+    return last - first + 1;  // Count of duplicates
+}
+
+int main() {
+    int arr[] = {2, 4, 4, 4, 5, 6, 7, 8, 8, 9};  // Sorted array
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int target = 4;
+
+    int count = countOccurrences(arr, n, target);
+    if (count > 0)
+        printf("Element %d occurs %d times.\n", target, count);
+    else
+        printf("Element not found.\n");
+
+    return 0;
+}
+#include <stdio.h>
+
+// Function to find indices (i, j, k) such that arr[i] + arr[j] = arr[k]
+void findTriplets(int arr[], int n) {
+    int found = 0;
+    
+    // Fix k (iterate from last to third element)
+    for (int k = n - 1; k >= 2; k--) {
+        int i = 0, j = k - 1; // Two pointers
+        
+        while (i < j) {
+            int sum = arr[i] + arr[j];
+            
+            if (sum == arr[k]) {
+                printf("Indices found: i = %d, j = %d, k = %d (Values: %d + %d = %d)\n",
+                       i, j, k, arr[i], arr[j], arr[k]);
+                found = 1;
+                i++; // Move to next possible pair
+                j--;
+            } else if (sum < arr[k]) {
+                i++; // Increase sum
+            } else {
+                j--; // Decrease sum
+            }
+        }
+    }
+
+    if (!found)
+        printf("No such indices found.\n");
+}
+
+// Driver function
+int main() {
+    int arr[] = {2, 3, 5, 8, 10, 12, 15};  // Sorted array
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    findTriplets(arr, n);
+
+    return 0;
+}
